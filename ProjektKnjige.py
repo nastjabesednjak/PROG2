@@ -278,6 +278,61 @@ def graf():
 
     plt.axis('equal')
     plt.show()
+    
+def stevilo_knjig_na_crko():
+    ''' vrne število knjig, katerih avtorji se začnejo na posamezno črko abecede. '''
+    with open('knjige21.csv', encoding='utf-8') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        knjige = []
+        crke = list(string.ascii_uppercase)
+        for crka in crke:
+            koliko = 0
+            stevec = 0
+            with open('knjige21.csv', encoding='utf-8') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                for vrstica in csv_reader:
+                    if stevec == 0:  # prve vrstice z imeni stolpcev ne štejemo
+                        pass
+                    elif len(vrstica) == 0:  # preskočimo prazne vrstice
+                        pass
+                    else:
+                        if vrstica[1][0] == crka:
+                            # vrstica[1][0] predstavlja prvo črko avtorja
+                            koliko += 1  # če je ta enaka trenutni črki, povečamo koliko za 1
+                    stevec += 1
+            knjige.append((crka, koliko))  # v seznam knjige dodamo par (črka, število knjig na to črko)
+        print(knjige)
+
+    '''
+    >>> stevilo_knjig_na_crko()
+    [('A', 74), ('B', 35), ('C', 83), ('D', 64), ('E', 33), ('F', 3), ('G', 27), ('H', 20), ('I', 9), ('J', 152), ('K', 68), ('L', 41), ('M', 67),
+    ('N', 41), ('O', 2), ('P', 41), ('Q', 0), ('R', 63), ('S', 107), ('T', 42), ('U', 2), ('V', 7), ('W', 10), ('X', 0), ('Y', 2), ('Z', 5)]
+    '''
+    
+def prikaz_knjig_po_abecedi():
+    ''' Funkcija izriše graf, ki ima na x-osi posamezne črke abecede, na y-osi pa število knjig, katerih avtorji se začnejo na to črko. '''
+    knjige = [('A', 74), ('B', 35), ('C', 83), ('D', 64), ('E', 33), ('F', 3), ('G', 27), ('H', 20), ('I', 9),
+              ('J', 152), ('K', 68), ('L', 41), ('M', 67),
+              ('N', 41), ('O', 2), ('P', 41), ('Q', 0), ('R', 63), ('S', 107), ('T', 42), ('U', 2), ('V', 7), ('W', 10),
+              ('X', 0), ('Y', 2), ('Z', 5)]
+    visine = []
+    os = []
+    for crka in knjige:
+        visine.append(crka[1])
+        os.append(crka[0])
+    y_pos = np.arange(len(os))
+
+    # Ustvarimo osi
+    plt.bar(y_pos, visine)
+
+    # Ustvarimo oznake na x-osi
+    plt.xticks(y_pos, os)
+
+    # poimenujemo y -os
+    plt.ylabel('število knjig')
+
+    # Prikažemo graf
+    plt.show()
 
 print('\n'
       'Pomoc uporabniku: Program analizira najbolj priljubljene knjige 21. '
@@ -306,6 +361,10 @@ print('\n'
       '-Funkcija razpored_knjig_ocena() je enaka kot funkcija razpored_knjig_po_oceni(), ampak vrne samo podatke za dela med ocenama 3 in 5.\n'
       '\n'
       '-Ce vpisete "graf", vam bo prikazalo tortni diagram z delezi knjig na dolocenih intervalih ocen.\n'
+      '\n'
+      '-Funkcija stevilo_knjig_na_crko() vrne število knjig, katerih avtorji se začnejo na posamezno črko abecede.\n'
+      '\n'
+      '-Funkcija prikaz_knjig_po_abecedi() izriše graf, ki ima na x-osi posamezne črke abecede, na y-osi pa število knjig, katerih avtorji se začnejo na to črko.\n'
       '\n'
       'Za izhod vpisite "exit".'
       '\n')
