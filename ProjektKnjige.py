@@ -47,7 +47,7 @@ def cisti_podatki(podatki):
     return podatki_knjige
 
 
-for i in range(1, 31):
+for i in range(1, 21):
     url = ('https://www.goodreads.com/list/show/7.Best_Books_of_the_21st_Century?page={}').format(i)
     orodja.shrani_spletno_stran(url, 'stran-{}.html'.format(i))
 
