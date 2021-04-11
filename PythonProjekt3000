@@ -1,7 +1,7 @@
 import csv
 import json
 import re
-import orodja
+import orodja   # uporabila sem kodo doc. dr. Matije Pretnarja, ki jo dovoli uporabljati študentom
 import matplotlib.pyplot as plt
 
 
